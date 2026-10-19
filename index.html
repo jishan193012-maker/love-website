@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Love Story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#070a14;
+    --bg-mid:#0d1224;
+    --pink:#ff2d78;
+    --blue:#3b6cff;
+    --gold:#ffb400;
+    --purple:#9b5cff;
+    --green:#2fe07a;
+    --red:#ff3b5c;
+    --text-soft:#dfe3ef;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse 700px 500px at 82% 8%, rgba(255,236,180,0.10), transparent 60%),
+      radial-gradient(ellipse 900px 500px at 50% 96%, rgba(255,140,60,0.09), transparent 60%),
+      linear-gradient(180deg,#05060f 0%, #090c1a 40%, #0b0e1f 70%, #0d0f1c 100%);
+    font-family:'Hind Siliguri','Poppins',sans-serif;
+    color:var(--text-soft);
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* ---------- decorative night scene (pure CSS, no external images) ---------- */
+  .scene{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+
+  .moon{
+    position:absolute;top:6%;right:9%;width:90px;height:90px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #fffdf3, #ffe9b0 55%, #f4c96b 100%);
+    box-shadow:0 0 60px 18px rgba(255,229,160,0.35), 0 0 140px 60px rgba(255,200,120,0.12);
+    opacity:0.9;
+  }
+  .moon::after{
+    content:'';position:absolute;inset:0;border-radius:50%;
+    background:
+      radial-gradient(circle at 65% 30%, rgba(180,150,90,0.25) 0 6px, transparent 7px),
+      radial-gradient(circle at 40% 60%, rgba(180,150,90,0.2) 0 9px, transparent 10px),
+      radial-gradient(circle at 70% 70%, rgba(180,150,90,0.18) 0 5px, transparent 6px);
+  }
+
+  .lake{
+    position:absolute;left:0;right:0;bottom:0;height:26%;
+    background:linear-gradient(180deg, rgba(10,14,30,0) 0%, rgba(15,22,45,0.55) 40%, rgba(8,12,26,0.85) 100%);
+  }
+  .lake-glow{
+    position:absolute;left:0;right:0;bottom:0;height:26%;
+    background:repeating-linear-gradient(180deg, rgba(255,200,140,0.10) 0px, rgba(255,200,140,0.10) 2px, transparent 2px, transparent 10px);
+    mask-image:radial-gradient(ellipse 60% 100% at 78% 100%, black, transparent 70%);
+    -webkit-mask-image:radial-gradient(ellipse 60% 100% at 78% 100%, black, transparent 70%);
+  }
+
+  .blossoms{position:absolute;top:-40px;left:-60px;width:340px;height:340px;transform:rotate(-8deg);}
+  .blossoms.bottom{top:auto;bottom:-70px;left:-80px;transform:rotate(4deg);opacity:0.85;}
+  .petal{
+    position:absolute;border-radius:60% 40% 65% 35%;
+    background:radial-gradient(circle at 35% 30%, #ffb6d5, #ff5f9e 70%, #d63b7c 100%);
+    box-shadow:0 0 10px rgba(255,90,150,0.35);
+  }
+
+  .lantern-glow{
+    position:absolute;right:6%;bottom:8%;width:60px;height:60px;border-radius:50%;
+    background:radial-gradient(circle, rgba(255,170,60,0.55), rgba(255,120,30,0.15) 60%, transparent 75%);
+    filter:blur(2px);
+  }
+
+  .neon-heart{
+    position:absolute;left:2%;bottom:20%;font-size:46px;color:transparent;
+    -webkit-text-stroke:1.5px #ff3d78;
+    text-shadow:0 0 6px #ff2d78, 0 0 16px #ff2d78, 0 0 34px rgba(255,45,120,0.6);
+    opacity:0.85;
+  }
+
+  .drop{position:absolute;top:-10%;width:1px;background:linear-gradient(to bottom, transparent, rgba(180,200,255,0.28));animation:fall linear infinite;}
+  @keyframes fall{ to{ transform:translateY(115vh); } }
+
+  .wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:56px 24px 60px;}
+
+  header{text-align:center;margin-bottom:34px;}
+  .brand{
+    font-family:'Dancing Script',cursive;
+    font-size:clamp(40px,7vw,64px);
+    font-weight:700;
+    color:#fff;
+    text-shadow:0 0 18px rgba(255,255,255,0.35);
+    margin:0;
+  }
+  .brand span{color:var(--pink);text-shadow:0 0 22px rgba(255,45,120,0.75);}
+  .divider{width:120px;height:2px;margin:14px auto;background:linear-gradient(90deg,transparent,var(--pink),transparent);position:relative;}
+  .divider::after{content:'♥';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:var(--pink);font-size:16px;text-shadow:0 0 10px var(--pink);}
+  .subtitle{font-size:15.5px;color:#b7bdd4;letter-spacing:0.3px;}
+
+  /* ---------- photo collage ---------- */
+  .collage{
+    display:grid;grid-template-columns:1fr 1fr;gap:8px;
+    margin:0 auto 22px;max-width:420px;
+    padding:8px;border-radius:20px;
+    background:rgba(12,16,30,0.6);
+    border:1px solid rgba(255,45,120,0.55);
+    box-shadow:0 0 30px -8px rgba(255,45,120,0.55), inset 0 0 24px -16px rgba(255,45,120,0.6);
+  }
+  .collage .big{grid-column:1 / -1;height:150px;}
+  .collage .small{height:96px;}
+  .collage img{width:100%;height:100%;object-fit:cover;border-radius:12px;display:block;background:#151a2c;}
+  .collage figure{margin:0;}
+
+  /* ---------- custom audio player ---------- */
+  .player{
+    max-width:420px;margin:0 auto 30px;padding:10px 16px;
+    display:flex;align-items:center;gap:12px;
+    background:rgba(16,20,34,0.75);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:999px;
+    box-shadow:0 0 20px -6px rgba(255,45,120,0.25);
+  }
+  .player button.playbtn{
+    width:34px;height:34px;border-radius:50%;flex:0 0 auto;
+    border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.06);
+    color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  }
+  .player button.playbtn:hover{border-color:var(--pink);color:var(--pink);}
+  .player .time{font-size:12px;color:#c6cae0;white-space:nowrap;font-variant-numeric:tabular-nums;}
+  .player .track{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.18);position:relative;cursor:pointer;}
+  .player .track .fill{position:absolute;left:0;top:0;bottom:0;width:0%;border-radius:2px;background:linear-gradient(90deg,var(--pink),#ff7fb0);}
+  .player .icon-btn{background:none;border:none;color:#c6cae0;font-size:15px;cursor:pointer;flex:0 0 auto;}
+  .player .icon-btn:hover{color:#fff;}
+
+  /* ---------- section link list (pill rows, matches reference) ---------- */
+  .list{display:flex;flex-direction:column;gap:16px;margin-top:6px;}
+  .card{
+    --glow:var(--pink);
+    background:rgba(10,14,26,0.72);
+    border:1px solid color-mix(in srgb, var(--glow) 55%, transparent);
+    border-radius:16px;
+    padding:18px 20px;
+    cursor:pointer;
+    position:relative;
+    box-shadow:0 0 24px -10px color-mix(in srgb, var(--glow) 60%, transparent), inset 0 0 20px -16px var(--glow);
+    transition:transform .2s ease, box-shadow .2s ease;
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 0 30px -6px color-mix(in srgb, var(--glow) 70%, transparent);}
+  .card .left{min-width:0;}
+  .card h3{
+    margin:0 0 6px;font-size:17px;font-weight:600;color:var(--glow);
+    display:flex;align-items:center;gap:8px;
+    text-shadow:0 0 10px color-mix(in srgb, var(--glow) 60%, transparent);
+  }
+  .card h3 .ic{filter:drop-shadow(0 0 6px currentColor);}
+  .card p{margin:0;font-size:13.5px;line-height:1.6;color:#c8cde2;}
+  .card .right{display:flex;align-items:center;gap:10px;flex:0 0 auto;}
+  .card .mini-heart{font-size:14px;color:var(--glow);opacity:0.8;text-shadow:0 0 8px currentColor;}
+  .go{
+    width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--glow);color:var(--glow);font-size:15px;
+  }
+
+  .c-story{--glow:var(--pink);}
+  .c-poem{--glow:var(--blue);}
+  .c-feel{--glow:var(--gold);}
+  .c-song{--glow:var(--purple);}
+  .c-dream{--glow:var(--green);}
+  .c-secret{--glow:var(--red);}
+
+  footer.forever{
+    text-align:center;margin-top:44px;padding-top:26px;
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+  .forever-badge{
+    display:inline-block;padding:10px 26px;border:1px solid var(--pink);border-radius:999px;
+    color:#fff;font-size:15px;letter-spacing:1px;text-shadow:0 0 8px var(--pink);
+    box-shadow:0 0 20px -6px var(--pink);
+  }
+
+  /* section view */
+  .section{display:none;}
+  .section.active{display:block;animation:fadeIn .35s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  .home.active{display:block;}
+  .home{display:none;}
+
+  .back-btn{
+    display:inline-flex;align-items:center;gap:8px;background:none;border:1px solid rgba(255,255,255,0.25);
+    color:#e7e9f3;padding:9px 18px;border-radius:999px;font-family:inherit;font-size:14px;cursor:pointer;
+    margin-bottom:28px;transition:border-color .2s ease,color .2s ease;
+  }
+  .back-btn:hover{border-color:var(--pink);color:var(--pink);}
+
+  .panel{
+    background:rgba(10,14,26,0.8);border:1px solid rgba(255,255,255,0.12);border-radius:20px;
+    padding:38px clamp(20px,4vw,52px);box-shadow:0 0 40px -18px rgba(155,92,255,0.5);
+  }
+  .panel h2{
+    font-family:'Dancing Script',cursive;font-size:clamp(30px,5vw,44px);margin:0 0 22px;color:#fff;
+  }
+  .panel .body-text{font-size:17px;line-height:2;color:#d7dbee;white-space:pre-line;}
+  .panel .body-text em{color:var(--pink);font-style:normal;}
+
+  .p-story h2{color:var(--pink);text-shadow:0 0 16px rgba(255,45,120,0.5);}
+  .p-poem h2{color:#7fa4ff;text-shadow:0 0 16px rgba(59,108,255,0.5);}
+  .p-feel h2{color:var(--gold);text-shadow:0 0 16px rgba(255,180,0,0.5);}
+  .p-song h2{color:#c39bff;text-shadow:0 0 16px rgba(155,92,255,0.5);}
+  .p-dream h2{color:var(--green);text-shadow:0 0 16px rgba(52,211,153,0.5);}
+  .p-secret h2{color:#ff7c8f;text-shadow:0 0 16px rgba(255,59,92,0.5);}
+
+  .song-embed{margin-top:20px;padding:16px 18px;border:1px dashed rgba(195,155,255,0.4);border-radius:12px;font-size:14px;color:#b7bdd4;}
+
+  /* secret surprise lock interaction */
+  .lock-stage{text-align:center;padding:20px 0 6px;}
+  .lock-icon{font-size:52px;color:#ff7c8f;text-shadow:0 0 22px rgba(255,59,92,0.6);}
+  .unlock-btn{
+    margin-top:22px;background:linear-gradient(135deg,var(--red),var(--pink));border:none;color:#fff;
+    padding:13px 30px;border-radius:999px;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;
+    box-shadow:0 0 26px -6px var(--pink);
+  }
+  .surprise-content{display:none;margin-top:26px;}
+  .surprise-content.revealed{display:block;animation:fadeIn .4s ease;}
+
+  @media (max-width:520px){
+    .wrap{padding:40px 16px 30px;}
+    .panel{padding:28px 18px;}
+    .moon{width:60px;height:60px;top:4%;right:6%;}
+    .blossoms{width:220px;height:220px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="scene" id="scene">
+  <div class="moon"></div>
+  <div class="lake"></div>
+  <div class="lake-glow"></div>
+  <div class="lantern-glow"></div>
+  <div class="neon-heart">♥</div>
+  <div class="blossoms" id="blossomsTop"></div>
+  <div class="blossoms bottom" id="blossomsBottom"></div>
+  <div class="rain" id="rain" style="position:absolute;inset:0;"></div>
+</div>
+
+<div class="wrap">
+
+  <!-- ===================== HOME ===================== -->
+  <div class="home active" id="home">
+    <header>
+      <h1 class="brand">My Love <span>Story</span> ♥</h1>
+      <div class="divider"></div>
+      <!-- এখানে তোমার নিজের ট্যাগলাইন লিখতে পারো -->
+      <p class="subtitle">একটি ছোট ওয়েবসাইট, একটি সুন্দর ভালোবাসার গল্প ❤️</p>
+    </header>
+
+    <!-- photo collage: replace the src values below with your own three photos -->
+    <div class="collage">
+      <figure class="big"><img src="Riyad3.jpeg" alt="আমাদের মুহূর্ত ১"></figure>
+      <figure class="small"><img src="Riyad2.jpeg" alt="আমাদের মুহূর্ত ২"></figure>
+      <figure class="small"><img src="Riyad4.jpeg" alt="আমাদের মুহূর্ত ৩"></figure>
+    </div>
+
+    <!-- custom music player, driven by the hidden audio element below -->
+    <div class="player">
+      <button class="playbtn" id="playBtn" aria-label="play">▶</button>
+      <span class="time" id="timeLabel">0:00 / 0:00</span>
+      <div class="track" id="track"><div class="fill" id="fill"></div></div>
+      <button class="icon-btn" id="muteBtn" aria-label="mute">🔊</button>
+      <button class="icon-btn" aria-label="more">⋮</button>
+    </div>
+    <audio id="bgAudio" src="hossion.com/Riyad1.mp3" loop preload="metadata"></audio>
+
+    <div class="list">
+      <div class="card c-story" onclick="showSection('story')">
+        <div class="left">
+          <h3><span class="ic">💞</span> My Love Story</h3>
+          <p>তোমাকে ঘিরে লেখা আমাদের এক টুকরো সুন্দর গল্প ❤️🌹</p>
+        </div>
+        <div class="right">
+          <span class="mini-heart">♥</span><span class="mini-heart">♥</span>
+          <div class="go">→</div>
+        </div>
+      </div>
+
+      <div class="card c-poem" onclick="showSection('poem')">
+        <div class="left">
+          <h3><span class="ic">💌</span> Lovely Poem</h3>
+          <p>তোমার জন্য লেখা এক টুকরো ভালোবাসা 🌹</p>
+        </div>
+        <div class="right">
+          <span class="mini-heart">♥</span>
+          <div class="go">→</div>
+        </div>
+      </div>
+
+      <div class="card c-feel" onclick="showSection('feel')">
+        <div class="left">
+          <h3><span class="ic">📸</span> Emotional Section</h3>
+          <p>মনের গভীরে লুকিয়ে থাকা কিছু না বলা অনুভূতি 💓</p>
+        </div>
+        <div class="right">
+          <span class="mini-heart">♥</span>
+          <div class="go">→</div>
+        </div>
+      </div>
+
+      <div class="card c-song" onclick="showSection('song')">
+        <div class="left">
+          <h3><span class="ic">🎵</span> My Song</h3>
+          <p>তোমাকে মনে করিয়ে দেওয়া আমার প্রিয় কিছু গান ❤️🎶</p>
+        </div>
+        <div class="right">
+          <span class="mini-heart">♥</span>
+          <div class="go">→</div>
+        </div>
+      </div>
+
+      <div class="card c-dream" onclick="showSection('dream')">
+        <div class="left">
+          <h3><span class="ic">🌙</span> My Dreams</h3>
+          <p>তোমাকে নিয়ে দেখা আমার কিছু সুন্দর স্বপ্ন ❤️✨</p>
+        </div>
+        <div class="right">
+          <span class="mini-heart">♥</span>
+          <div class="go">→</div>
+        </div>
+      </div>
+
+      <div class="card c-secret" onclick="showSection('secret')">
+        <div class="left">
+          <h3><span class="ic">🔒</span> Secret Surprise</h3>
+          <p>তোমার জন্য লুকিয়ে রাখা আমার সবচেয়ে বিশেষ উপহার 🎁</p>
+        </div>
+        <div class="right">
+          <span class="mini-heart">♥</span>
+          <div class="go">→</div>
+        </div>
+      </div>
+    </div>
+  
+
+    <footer class="forever">
+      <div style="margin-bottom:16px;font-family:'Dancing Script',cursive;font-size:20px;color:#c9cde6;">তুমি আছো বলেই জীবনটা এত সুন্দর...</div>
+      <span class="forever-badge">❤️ Forever Together ❤️</span>
+    </footer>
+  </div>
+
+  <!-- ===================== MY LOVE STORY ===================== -->
+  <div class="section p-story" id="sec-story">
+    <button class="back-btn" onclick="showHome()">← ফিরে যাও</button>
+    <div class="panel">
+      <h2>💞 My Love Story</h2>
+      <!-- এখানে তোমার আসল গল্প লিখো -->
+      <div class="body-text"><p style="color: #0af859;font-size:15px;">আমার ভালোবাসার গল্পটা শুরু হয়েছিল এক অদ্ভুত এক আবহাওয়ায়।
+সেদিন আকাশটা ছিল মেঘলা, চারপাশে হালকা বৃষ্টি আর ঠিক সেই সময় তাকে আমি প্রথম দেখি। তাকে দেখার পরে আমার মনে কোনো আনন্দ কাজ করেনি বরং শুধুই আফসোস হয়েছে, কারণ আমি ছিলাম একজন সাধারণ মানুষ, আর সে ছিল আমার চোখে সুদূর আকাশের হাজারও নক্ষত্রের মাঝে একটি বিশেষ নক্ষত্র, যাকে সব সময় দেখা যায় না মাঝে মাঝে দেখা যায়। আমি ভালোভাবেই জানি তাকে আমি কখনোই পাব না এবং পাওয়ার ইচ্ছাও আমার নেই কারণ সে শুধুই আমার এক কাল্পনিক দু:স্বপ্ন।
+
+"কথায় আছে প্রেমিকা যদি দেখতে সুন্দর হয় প্রেমিকের ভালোবাসা খাঁটি হয়" কিছু দিনপরে জানতে পারি সেও নাকি একজনেরে ভালোবাসে তখন মনটা একটু খারাপ হয়েছিল কিন্তু মুখে অলপ অলপ হাঁশি ছিল। ও যারে ভালোবাসে সেও নাকি ওরে অনেক ভালোবাসে, কেনোই বা সে তাকে ভালোবাসবে না। সেই মানুষটা তো আর আসমানের চাঁদ না সেই মানুষটা তো অসংখ্য নক্ষত্রের মাঝের শ্রেষ্ঠ নক্ষত্র। আমার মতো হাজারও ছেলে ওই নক্ষত্রের জন্য পাগল কিন্তু তারা তো তার নাগাল পাই না। আমিও ঠিক তাদের মত, না না তাদের থেকেও কম তারা যেহেতু সে নক্ষত্রের নাগাল পাই না আর আমি তো কনকের কিডা।
+
+
+কিন্তু ভালোবাসা তো সবসময় পাওয়ার নাম নয়। কখনো কখনো ভালোবাসা মানে হলো—দূর থেকে কাউকে দেখে হাসা, তার ভালো থাকার জন্য নীরবে দোয়া করা, আর নিজের ভেতরে হাজারটা কষ্ট লুকিয়ে রাখা।
+
+আমি জানতাম, সে হয়তো কোনোদিন আমার হবে না। তবুও কেন জানি প্রতিদিন তার অপেক্ষায় থাকতাম। তার একটুখানি হাসি আমার সারাদিনের বিষণ্ণতা দূর করে দিত। সে হয়তো জানতই না, তার একটা ছোট্ট কথার জন্য কেউ একজন সারারাত জেগে থাকে।
+
+কখনো কখনো ইচ্ছে হতো তাকে সব বলে দিই—
+“তুমি আমার কাছে কতটা গুরুত্বপূর্ণ, সেটা হয়তো তুমি কোনোদিন বুঝবে না। তোমাকে পাওয়ার জন্য নয়, শুধু তোমাকে ভালোবাসার অধিকারটুকু নিয়েই আমি বেঁচে থাকতে চাই।”
+
+কিন্তু মুখোমুখি দাঁড়িয়ে সেই কথাগুলো আর বলা হয়ে উঠত না। ভয় হতো—যদি সে দূরে সরে যায়? যদি আমার ভালোবাসার কথা জানার পর তার চোখে আমি অপরিচিত হয়ে যাই?
+
+তাই চুপ করে থাকতাম।
+
+দিনের পর দিন কেটে যেতে লাগল। ঋতু বদলাল, আকাশ বদলাল, চারপাশের মানুষগুলো বদলে গেল। শুধু বদলাল না আমার অনুভূতিটা। বরং সময় যত গড়াতে লাগল, তাকে ভালোবাসাটা ততই গভীর হতে লাগল।
+
+একদিন হঠাৎ বৃষ্টির মধ্যে তাকে দেখলাম। সে ছাতা হাতে ধীরে ধীরে হাঁটছিল। চারপাশে অনেক মানুষ ছিল, কিন্তু আমার চোখ শুধু তাকেই খুঁজছিল। সেদিন মনে হয়েছিল—এই শহরে হাজার মানুষ থাকলেও, আমার পৃথিবীটা যেন শুধু একজন মানুষকে ঘিরেই তৈরি।
+
+আমি দূর থেকে দাঁড়িয়ে তাকে দেখছিলাম। কাছে যাওয়ার সাহস হলো না।
+
+শুধু মনে মনে বললাম—
+
+“তুমি হয়তো কোনোদিন আমার গল্পের শেষ অধ্যায় হবে না,
+তবুও তুমি আমার গল্পের সবচেয়ে সুন্দর অধ্যায় হয়ে থাকবে।
+তোমাকে পাওয়া হয়নি—এটা আমার আফসোস,
+কিন্তু তোমাকে ভালোবেসেছিলাম—এটাই আমার জীবনের সবচেয়ে সুন্দর সত্য।”
+
+কেউ জানবে না, কেউ বুঝবে না।
+শুধু আমার হৃদয়টা জানবে—
+কিছু ভালোবাসা পূর্ণতা পাওয়ার জন্য আসে না,
+কিছু ভালোবাসা সারাজীবন মনে থেকে যাওয়ার জন্যই আসে। ❤️‍🩹
+
+অনেকেই তাকে ভালোবাসার কথা বলে বিরক্ত করে সে কথা আমি জানি তবে আমি চাই না সে আমারে অন্য ছেলেদের মত ভাবুক। অন্যরা যেমন তারে ভালোবাসার কথা বলে বিরক্ত করে, আমি কখনোই সেটা করব না। আমি জানি যদি তারে আমার ভালোবাসার কথা বলি তাহলে সে আমাকে অনেক ঘৃনা করবে কারণ সে আমাকে তার ভালো বন্ধু হিসেবে দেখে সে কখনোই ভাবেনা আমি তারে ভালোবাসতে পারি পচ্ছন্দ করতে পারি। আমি তারে ভালোবাসবো অনেক ভালোবাসবো কিন্তু সেটা সে কখনোই জানতে পারবে না আর যদি সে জানে আমি তারে ভালোবাসি তারপর থেকে আমি তার সামনে কখনোই যাবো না।
+      </p></div>
+    </div>
+  </div>
+
+  <!-- ===================== LOVELY POEM ===================== -->
+  <div class="section p-poem" id="sec-poem">
+    <button class="back-btn" onclick="showHome()">← ফিরে যাও</button>
+    <div class="panel">
+      <h2>💌 Lovely Poem</h2>
+      <!-- এখানে তোমার লেখা কবিতা বসাও -->
+      <div class="body-text">
+        <p style="color: #0af859;"><h2>ভালোবাসার অনুভূতি</h2><p style="color: #0af859;">তোমার জন্য লেখা আমার এই ভালোবাসা
+যেখানে প্রতিটি শব্দে লুকিয়ে আছে তোমারই ছোঁয়া।
+তুমি কাছে না থাকলেও, মনের গভীরে থাকো প্রতিনিয়ত
+তোমার হাসিটতে আমার মনটা অকারনে ভালো হয়ে যায়।
+তোমাকে দেখলে আমার হৃদয় কেন যানি থেমে যায়।
+তুমি আমার নীরব হৃদয়ের সবচেয়ে সুন্দর এক অনুভূতি
+তুমি দূরে থাকলেও মনে হয় তুমি আমার কাছেই আছে।
+হাজার মানুষের ভিড়ে এই চোখ শুধু তোমাকেই দেখতে চাই।
+হাজার কথার মঝে এই মন শুধু তোমার কথাই শুনতে চাই
+জানি না এই অনুভূতির শেষ কোথায়,
+শুধু জানি—<h3><p style="color: #fd0751; font-size: 16px;">আমার ভালোবাসার গল্পটা তোমাকে দিয়েই শুরু।</p></h3>
+        <p style="color: #0af859;"><h2>আমি শুধু তোমারেই জন্য</h2><p style="color: #0af859; font-size: 15px;">তুমি আছো বলেই আমার গল্পটা সুন্দর,
+তুমি হাসো বলেই আমার পৃথিবীটা রঙিন,
+তোমার নামটা মনে এলেই
+অজান্তেই ঠোঁটের কোণে হাসি ফুটে ওঠে।
+তোমাকে ভালোবাসি—
+এই কথাটা হয়তো খুব ছোট,
+কিন্তু এর ভেতরে লুকিয়ে আছে
+আমার হাজারটা অনুভূতি।
+তুমি আমার সেই মানুষ,
+যাকে হারানোর ভয় প্রতিদিন মনে জাগে।
+তুমি আমার সেই স্বপ্ন,
+যাকে চোখ বন্ধ করেও দেখতে পাই।
+যদি কোনোদিন প্রশ্ন করো,
+"কতটা ভালোবাসি তোমাকে?"
+তাহলে শুধু বলব-<h3><p style="color: #fd0751; font-size: 16px;">যতটা ভালোবাসলে একজন মানুষ তার প্রিয় মানুষটাকে নিজের চেয়েও বেশি ভাবতে পারে। ❤️🌹</h3>
+
+<h2>তোমাকেই ভালোবাসি</h2><p style="color: #0af859;"size: 15px;">জানি তুমি আমার হবে  না 
+তবুও তোমাকেই ভালোবাসি।
+জানি তুমি পাশে থাকবে কি না
+তবুও তোমার অপেক্ষায় থাকি।
+তোমার কাছে আমি হয়তো
+শুধুই একজন সাধারণ মানুষ,
+কিন্তু আমার কাছে তুমি—
+দুনিয়ার সবচেয়ে সুন্দরতম মানুষ।
+তুমি কাছে নেই,
+তবুও প্রতিটি মুহূর্তে তোমার উপস্থিতি অনুভব করি।
+তোমার সাথে কথা হয় না,
+তবুও প্রতিদিন মনে মনে তোমার সাথে কথা বলি।
+রাতের নীরবতায় কতবার তোমার নাম নিই,
+কতবার নিজের মনকে বুঝাই,
+“সে তো আমার নয়।”
+তবুও মনটা বোঝে না...
+বারবার তোমার কাছেই ফিরে যায়।
+তোমাকে পাওয়ার আশা নেই,
+তবুও তোমাকেই চাই—
+কারণ ভালোবাসা তো সবসময়
+পাওয়ার নাম নয়।<h3><p style="color: #fd0751; font-size: 16px;">ভালোবাসা হলো রিদয়ের এক নীরব সাধনা </p>
+<h2>এই মনে শুধুুই তুমি❤️</h2><p style="color: #0af859;"size: 15px;>এই মনে শুধুই তুমি,
+নীরব রাতের চাঁদের আলোয়
+তোমাকেই খোঁজে আমার একাকী মনটা।
+হাজার মানুষের ভিড়েও
+কেন জানি তোমাকেই মনে পড়ে,
+চোখ বন্ধ করলেই তুমি—
+স্বপ্ন হয়ে এসে দাঁড়াও হৃদয়ের ঘরে।
+তুমি কাছে নেই, তবুও
+তোমার অনুভূতি পাশে থাকে,
+তোমার একটি ছোট্ট হাসি
+আমার পুরো দিনটাকে সুন্দর করে রাখে।
+তুমি কি জানো আমার এই ভালোবাসার
+কোনো শেষ নেই,
+শেষ নিঃশ্বাস পর্যন্ত আমার এই মন,
+তোমাকেই ভালোবাসবে নীরবে<h3><p style="color: #fd0751; font-size: 16px;">কিন্তু আবসোস,তুমি হয়তো কখনোই সেটা জানবে না
+
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== EMOTIONAL SECTION ===================== -->
+  <div class="section p-feel" id="sec-feel">
+    <button class="back-btn" onclick="showHome()">← ফিরে যাও</button>
+    <div class="panel">
+      <h2>📸 Emotional Section</h2>
+      <!-- না বলা অনুভূতিগুলো এখানে লিখো -->
+      <div class="body-text">
+        <p style="color: #12f31e; font-size: 16px;">
+তুমি জানবে না, কতটা ভালোবাসি তোমায়। তুমি বুঝবে না, কত কথা জমে আছে নীরবতায়। তবুও কোনো অভিযোগ নেই, কোনো দাবি নেই তোমার কাছে— দূর থেকেই ভালোবেসে যাব তোমাকে, তুমি সুখে থেকো।
+
+তোমাকে পাওয়ার ইচ্ছে থাকবে, কিন্তু তোমাকে পাওয়া হবে না। তোমাকে পাওয়ার চেষ্টাও করবো না। তবুও আমার হৃদয়ের পাতা থেকে তোমার নামটা মোছা যাবে না কখনো। তোমাকে ভালোবাসার গল্পটা অদ্ভুত— এখানে অভিমান করার অধিকার নেই। অভিযোগ করার সুযোগও নেই। শুধুই ভালোবাসে যাওয়ার এক নীরব অভ্যাস আছে।
+
+তুমি আমার পাশে না থেকেও আমার গল্পের সুন্দর এক অবাস্তব স্বপ্ন। তোমায় পাওয়ার মত ভাগ্য নিয়ে আসিনি এই জগতে তবু ভালোবাসার এক পবিত্র হৃদয় নিয়ে এসেছি এই জীবনে যদি কোনদিন এই ভালোবাসা ফিরে না আসে কোনো উত্তর হয়ে তবুও কোন অভিযোগ রাখব না মনে। শুধু শান্ত হয়ে থাকবো নিজের নীরাবতায় কারণ ভালোবাসা দাবি নয়।
+এ এক অন্তরের নীরব সাধনা যেখানে পাওয়া নয় ভালোবাসাটাই বড়🤗
+
+তোমাকে ভালোবাসি কথাটা তোমাকে বলা হয়নি কখনো। হয়তো কখনো বলা হবে না।কিন্তু আমার হৃদয়ের এক কোনে তুমি আজীবন রয়ে যাবে। দূর থেকেই তোমাকে দেখব। দূর থেকেই ভালোবাসব।
+হয়তো তুমি কোনোদিনই বুঝবে না আমাকে আমার ভালোবাসাকে। যদিও আমি জানি,আমার এই একতরফা ভালোবাসা, কোনো অর্থই রাখবে না তোমার কাছে,
+তবুও শেষ পর্যন্ত আমি তোমার দিকেই চেয়ে থাকবো কারণ তোমাকে তো আমি ভালোবাসি তুমিই হলে আমার মন ভালো রাখার একমাত্র নীরব অনুভূতি।
+
+চিরকাল ছটফট করবে আমার এই হৃদয়, তোমাকে না পাওয়ার যন্ত্রণায়। তুমি যখন চলে যাবে তখনও এই মন তোমাকেই খুঁজবে। তোমাকে
+ভুলা তো অতোই সহজ না, আমি যেমন করে তোমার প্রেমে পড়েছি, সেভাবে কখনো কোনোদিন
+কোনো কালে কেউ কারো প্রেমে পড়েনি। নিজের অজান্তেই, নিঃস্বার্থে গভীরভাবে ডুবে
+গেছি তোমার ভেতর। অনেক চেষ্টার পরেও বের হতে পারিনি, হাজারবার নিজেকে
+বোঝাতে চাইলেও, হৃদয় বারবার তোমার কাছেই ফিরে আসে। তুমি আমার ভাবনার নীরব আশ্রয়, অনুভূতির একেবারে গভীর ও আপন
+কিছু কথা কখনো মুখে বলা হয় না, কিন্তু মনের মধ্যে থেকেই যায়। তোমাকে নিয়ে এমন অনেক অনুভূতি আছে যা হয়তো আমি কখনো সরাসরি বলিনি কিন্তু আমার হৃদয় জানে, তুমি আমার জীবনের সবচেয়ে সুন্দর অনুভূতি। তুমি আমার জীবনের সেই আলো যা অন্ধকারে পথ দেখায়। তুমি আমার স্বপ্নের সেই রঙ যা জীবনের প্রতিটি মুহূর্তকে সুন্দর করে তোলে। তুমি আমার ভালোবাসার সেই সুর যা হৃদয়ের প্রতিটি স্পন্দনকে মধুর করে তোলে। কতটা ভয় পাই তোমাকে হারানোর কথা ভাবলে,
+কতটা শান্তি পাই তোমার পাশে থাকলে।আমার ভালোবাসাটুকু ভবিষ্যৎ-এও এমনই থাকবে, যেমন এখন আছে।আমার এই ভালোবাসা নিঃস্বার্থ, গভীর আর চিরন্তন।
+তোমাকে ভালোবাসা আমার কোনো সিদ্ধান্ত নয়,এটা আমার হৃদয়ের সব থেকে সুন্দর অনুভূতি।তুমি থাকো বা না থাকো,তোমার জন্য এই ভালোবাসা কখনো কমবে না একটুও।
+
+হয়তো কোনোদিন তোমাকে মনের কথাগুলো মুখে বলা হবে না। তবুও প্রতিটি নিঃশ্বাসে তোমার নাম জড়িয়ে থাকবে,আমার নীরব হৃদয় শুধু তোমাকেই ভালোবেসে যাবে।
+তুমি আমার জীবনের সেই অসমাপ্ত কবিতা,যার প্রতিটি শব্দে লুকিয়ে আছে ভালোবাসার কথা।শেষ পাতায় কী লেখা হবে জানি না,শুধু জানি—তোমাকে ভালোবাসার গল্পটা কোনোদিন শেষ হবে না। ❤️🌸
+
+তোমার কথা মনে পড়লেই হৃদয়টা কেমন যেন থেমে যায়,তোমার মায়াবী হাসিটা মনে পড়ে চোখে স্বপ্ন ভেসে যায়। তুমি হয়তো জানো না, তুমি কতটা আপন আমার,
+তোমাকে ঘিরেই সাজিয়েছি নীরবে হাজার স্বপ্নের সংসার।
+তবুও তুমি নেই, আছে শুধু তোমার স্মৃতির ছায়া,
+নীরব রাতের প্রতিটি প্রহর জুড়ে তোমাকেই চায় এই মায়া।
+কাছে না থেকেও তুমি রয়ে গেছো হৃদয়ের খুব কাছে,
+আমার এই একতরফা ভালোবাসা—নীরবে শুধু তোমাকেই খুঁজে। ❤️‍🩹🌹
+তুমি যে আমার হবে না সেটা ভাবতেই আমার মনটা কেমন যেন অস্থির হয়ে উঠে,মনে হয় তোমাকে যদি আমার ভালোবাসার অনুভূতিটা একটিবার বোঝাতে পারতাম। কিন্তু বোঝাবো কি করে তোমার সামনে দাড়িয়ে এই অনুভুতির কথা বলার সাহস যে আমার নেই। তুমি হয়তো জানো না, আমি তোমাকে কতটা গভীরভাবে অনুভব করি। তুমি আমার জীবনের সেই অমূল্য রত্ন, যার মধ্যে আমি নিজেকে প্রতিনিয়ত হারিয়ে ফেলি। 
+কেনো জানি, তোমার চোখের গভীরতা আমাকে এক অজানা জগতে নিয়ে যায়, যেখানে শুধু তুমি আর আমি। তোমার হাসি আমার হৃদয়কে উজ্জীবিত করে, আর তোমার কথা আমার মনকে শান্তি দেয়। তুমি আমার জীবনের সেই অনন্য অনুভূতি, যা কখনোই হারাবে না।
+আমি জানি আমার এই ভালোবাসা কখনোই তোমার কাছে পৌঁছাবে না, কিন্তু তবুও আমি এই অনুভূতিটা লুকিয়ে রাখব না। প্রতিটি নিঃশ্বাসে তোমার নাম জড়িয়ে থাকবে,আমি মনে করি আমার এই ভালোবাসা অবাস্তব ফালতু কাল্পনিক অনুভুতি তবে আমি জানি এই অনুভূতিটা আমার জীবনের সবচেয়ে সুন্দর অনুভূতি। 
+তোমাকে পাওয়ার চাওয়ার চেয়েও, তোমাকে ভালোবেসে যাওয়াটাই যেন আমার সবচেয়ে সুন্দর অনুভূতি।” 🌸
+তবে এই অনুভুতির আনন্দ একদিন হারিয়ে যাবে যেদিন তুমি চলে যাবে আমার আড়ালে। তখন আমার কিছুটা খারাপ লাগবে তবে  এ মনটা তখনও তোমার কথাই ভাববে, যদিও তুমি আর আমার পাশে থাকবে না। তবুও আমার মনের এক কোণে তুমি ঠিকই থেকে যাবে। সময় বদলাবে, দূরত্ব বাড়বে, কিন্তু তোমার জন্য আমার অনুভূতিটা হয়তো কোনোদিন বদলাবে না। শুধু চাই, তুমি যেখানেই থাকো, ভালো থেকো
+ তুমি জানো না আমি যখন তোমাকে দেখি তখন অচিরেই আমার মনটা কেমন যেন আনন্দে ভরে যায়,সারাদিনের সব ক্লান্তি ভুলে যাই। তোমার চোখের গভীরতা আমাকে এক অজানা জগতে নিয়ে যায়, যেখানে শুধু তুমি আর আমি। 
+ তোমাকে নিয়ে আমি আমার জীবনের কল্পনা সুন্দর করে সাজাই, যদিও জানি এই কল্পনা কখনো বাস্তবে পরিণত হবে না। 
+ মনে হয় একটি নিরজন দ্বীপে আমরা দুজন একসাথে বসে আছি,তোমার হাতটা আমার হাতে, আর আমরা একে অপরের চোখের গভীরে হারিয়ে যাচ্ছি। রাতের খোলা আকাশের নিচে তুমি আমার বুকে মাথা রেখে আকাশের দিকে তাকিয়ে আছো , আর আমি তোমার দিকে তাকিয়ে মনে মনে বলছি আমার চোখে এই হাজার হাজার তারার মাঝের চাদ টাই হলে তুমি ।
+ <h3><p style="color:#da11ec; font-size: 20px;">(মাঝে মাঝে মনে হয়, তুমি যদি কোনোদিন ভুল করে আমার হয়ে যাও, তাইলে আমার এই জীবনে আর কিছু চাওয়ার থাকবে না।)</h3><p style="color: #12f31e; font-size: 16px;">কোনোদিন হারিয়ে যাই তোমার অচেনা ভিড়ে,মনে রেখো, একজন মানুষ আজও তোমাকেই ভালোবাসে নীরবে।
+
+        </p>
+        <p style="color:#fd0751; font-size: 16px;"> পাতাটা তোমার জন্যই, যে কথাগুলো শুধু তোমারই প্রাপ্য। 💓</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MY SONG ===================== -->
+  <div class="section p-song" id="sec-song">
+    <button class="back-btn" onclick="showHome()">← ফিরে যাও</button>
+    <div class="panel">
+      <h2>🎵 My Song</h2>
+      <div class="body-text">তোমাকে মনে করিয়ে দেয় এমন কিছু গান, যা শুনলেই তুমি আমার মনে ভেসে ওঠো।</div>
+      <div class="song-embed" style="padding:0;border:none;background:transparent;">
+        <audio src="hossion.com/Riyad5.mp3" controls style="width:100%;max-width:420px;border-radius:8px;"></audio>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MY DREAMS ===================== -->
+  <div class="section p-dream" id="sec-dream">
+    <button class="back-btn" onclick="showHome()">← ফিরে যাও</button>
+    <div class="panel">
+      <h2>🌙 My Dreams</h2>
+      <!-- তোমার স্বপ্নগুলো এখানে লিখো -->
+      <div class="body-text"><h3 style="color: #c80af8;"size=15px;>তোমাকে নিয়ে দেখা  স্বপ্নের সেই রাত</h3><p style="color: #0af859;"size=20px;>রাতটা ছলো অদ্ভুত সুন্দর। চারদিকে নিরাবতা,মুহুর্তটা ছিলো মেঘলা আকাশের জোসনা রাত,মেঘের ফাকে  স্লান চাদের আলো। আমি একা বসে ছিলাম নীবর এক নদীর ধারে।নদীর পানিতে চাঁদের আলো কাপছিলো।হালকা হালকা শীতল বাতাস বয়ছিলো। সেই বাতাসে গাছের কমল পাতাগুলো নড়ছিলো।
+এই সময় হঠাৎ দেখি জামকালো শাড়ি পরা, হাতে রেসমি চুড়ি, রাতের শীতল বাতাসে চুলগুলো এদিকে ওদিকে উড়ছে  (তুমি)এমন এক স্বপ্নময়ী মায়াবতী বেশ দূর থেকে নদীর পাড় দিয়ে আমার দিকে হেটে আসসে। 
+যখন তুমি আমার কাছে আসলে আমি অবাক হয়ে চেয়ে থাকলাম তোমার দিকে। মনে হতে লাগলো আমার হারিয়ে যাওয়া অনুভুতিটা আমি ফিরে পেয়েছি।
+কারণ তুমি তো আমার সেই না বলা ভালোবাসার মানুষ। তারপর তুমি আমার পাশে এসে বসলে,কিছুক্ষণ চুপ করে আছি দুজনেই, তারপর তুমি আস্তে করে বললে
+" ভালোবেসে পাবো না যেনেও ভালোবাসলে সে ভালোবাসা মিথ্যা হয় না,আবার কিছু মানুষ আমাদের জীবন থেকে দূরে চলে গেলেও তাদের যায়গা কখনো খালি হয় না,"
+তখন আমি মুচকি হেসে বললাম তোমাকে কি আমি কখনোই পাবো না? 
+"তখন তুমি আমার হাতটা ধরে কাধে মাথা রেখে আকাশের দিকে তাকিয়ে দীর্ঘ নিঃস্বাস নিয়ে উত্তর দিলে হয়তোবা পাবে না, আবার যদি সৃষ্টি কর্তার ইচ্ছা থাকে তাহলে পেতেও পারো, অন্যথায় তোমার কল্পনাতেই আমাকে রেখে দিও"
+তখন আমি অশ্রু ভরা চোখে তোমার দিকে তাকিয়ে থাকলাম তুমিও মায়া ভরা দৃষ্টিতে আমার দিকে তাকিয়ে আছো এমন সময় নীরব শীতল হাওয়া দমকা হাওয়া হয়ে চারিদিকে বয়তে লাগলো। 
+তারপর আমরা দুই জনই নদীর পাড় থেকে উঠে দুজনে হাত ধরে হাটতে লাগলাম হাটতে হাটতে আমি ভাবছি আসলেই তোমাকে আমি কখনোই পাবো না এমন সময় মুষলধারে বৃষ্টি নামলো বিদ্যুৎ চমকালো দমকা হওয়া বয়তে লাগলো---, ঠিক ওই সময় তুমি আমাকে জড়িয়ে ধরে কদো কদো কষ্ট বললে সব কিছু তো আর পাওয়ার জন্য নয়,আমি হয়তো আবার আসবো এমন সুন্দর এক নতুন মুহূর্ত হয়ে। 
+তখন তুমি আমাকে রেখে কথায় যেনো হারিয়ে যাচ্ছো ওই ফোটা ফোটা বৃষ্টির মাঝে,কেনো জানি তোমার এই চলে যাওয়া আমি মেনে নিতে পারছি না মনে হচ্ছে আমার ভেতরের সব কিছু ভেঙে যাচ্ছে আমি অস্থির হয়ে পড়ছি মনে হচ্ছে তোমাকে আটকায় তুমি যেনো আমার কাছে আজীবন থেকে যাও, কিন্তু আমি কিছুই করতে পারছি না শুধু দেখছি তুমি আমার থেকে আবার দূরে সরে যাচ্ছো। 
+কিছু দূর যাওয়ার পরে তুমি পেছনে ফিরে আমার দিকে তাকিয়ে বললে 
+"স্বপ্ন হলেও আমাদের এই মুহুর্ত টা মনে রাখবে কারণ কিছু স্বপ্ন সত্যি না হলেও হৃদয়ের অজানা শান্তি হিসেবে রয়ে যায়। ✨</div>
+    </div>
+  </div>
+
+  <!-- ===================== SECRET SURPRISE ===================== -->
+  <div class="section p-secret" id="sec-secret">
+    <button class="back-btn" onclick="showHome()">← ফিরে যাও</button>
+    <div class="panel">
+      <h2>🔒 Secret Surprise</h2>
+      <div class="lock-stage" id="lockStage">
+        <div class="lock-icon">🔒</div>
+        <p style="color:#b7bdd4;margin-top:10px;">তোমার জন্য একটা বিশেষ সারপ্রাইজ লুকানো আছে এখানে...</p>
+        <button class="unlock-btn" onclick="unlockSurprise()">এটা খুলে দেখো 🎁</button>
+      </div>
+      <div class="surprise-content" id="surpriseContent">
+        <!-- এখানে আসল সারপ্রাইজ/মেসেজ লিখো -->
+        <div class="body-text"><p style="color: #0af859; font-size: 15px;">  যদি এটা পড়ছো, তারমানে তুমি এতক্ষণে বুঝে গেছো —
+এই পুরো ওয়েবসাইটটাই তোমার জন্য বানানো, শুধু তোমাকে বলতে যে,
+তুমি আমার জীবনের সবচেয়ে সুন্দর উপহার।
+I love you, more than these words can ever say. 💝 ❤️<br>
+<div class="body-text"><h2>তোমাকেই ভালোবাসি</h2></p><p style="color: #12f31e; font-size: 16px;">যদিও তুমি হবেনা আমার
+          ছুলে কেনো মন
+          তোমার কথা চিন্তা করে 
+          কাটে সারাক্ষন
+
+          ভেবেছিলাম আপন হবে
+          থাকবে জনম ধরে
+          তোমাই নিয়ে আসবো আমি
+          আমার ছোট্ট ঘরে
+
+          এটা ছিলো আমার স্বপ্ন
+          তোমার স্বপ্ন নয়
+          মিথ্যা স্বপ্ন দেখেছি আমি
+          বাস্তব তা নয়
+
+          তোমাকে চেয়েছি আমি 
+          আমার কাছাকাছি
+          তোমাকে আমি পাবনা যেনেও 
+          তোমাকেই ভালোবাসি<br>
+
+<img src="Riyad9.jpeg"  style="width: 500px;;max-width:500px;margin-top:12px;border-radius:8px;">
+</div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function showSection(name){
+    document.getElementById('home').classList.remove('active');
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    document.getElementById('sec-'+name).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function showHome(){
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    document.getElementById('home').classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function unlockSurprise(){
+    document.getElementById('lockStage').style.display='none';
+    document.getElementById('surpriseContent').classList.add('revealed');
+  }
+
+  /* ---------- gentle rain ---------- */
+  (function(){
+    const rain = document.getElementById('rain');
+    const count = window.innerWidth < 600 ? 30 : 60;
+    for(let i=0;i<count;i++){
+      const d = document.createElement('div');
+      d.className='drop';
+      const left = Math.random()*100;
+      const height = 40 + Math.random()*70;
+      const dur = 0.8 + Math.random()*1.1;
+      const delay = Math.random()*3;
+      d.style.left = left+'vw';
+      d.style.height = height+'px';
+      d.style.animationDuration = dur+'s';
+      d.style.animationDelay = delay+'s';
+      rain.appendChild(d);
+    }
+  })();
+
+  /* ---------- cherry blossom petal clusters ---------- */
+  (function(){
+    function fillBlossom(el, count){
+      for(let i=0;i<count;i++){
+        const p = document.createElement('div');
+        p.className='petal';
+        const size = 10 + Math.random()*16;
+        p.style.width = size+'px';
+        p.style.height = size*0.8+'px';
+        p.style.left = Math.random()*100+'%';
+        p.style.top = Math.random()*100+'%';
+        p.style.opacity = 0.55 + Math.random()*0.4;
+        p.style.transform = 'rotate('+Math.floor(Math.random()*360)+'deg)';
+        el.appendChild(p);
+      }
+    }
+    fillBlossom(document.getElementById('blossomsTop'), 26);
+    fillBlossom(document.getElementById('blossomsBottom'), 18);
+  })();
+
+  /* ---------- custom audio player ---------- */
+  (function(){
+    const audio = document.getElementById('bgAudio');
+    const playBtn = document.getElementById('playBtn');
+    const muteBtn = document.getElementById('muteBtn');
+    const track = document.getElementById('track');
+    const fill = document.getElementById('fill');
+    const timeLabel = document.getElementById('timeLabel');
+
+    function fmt(t){
+      if(!isFinite(t)) return '0:00';
+      const m = Math.floor(t/60), s = Math.floor(t%60);
+      return m+':'+String(s).padStart(2,'0');
+    }
+    function updateTime(){
+      const dur = audio.duration || 0;
+      fill.style.width = dur ? (audio.currentTime/dur*100)+'%' : '0%';
+      timeLabel.textContent = fmt(audio.currentTime)+' / '+fmt(dur);
+    }
+    playBtn.addEventListener('click', ()=>{
+      if(audio.paused){ audio.play(); playBtn.textContent='❚❚'; }
+      else { audio.pause(); playBtn.textContent='▶'; }
+    });
+    muteBtn.addEventListener('click', ()=>{
+      audio.muted = !audio.muted;
+      muteBtn.textContent = audio.muted ? '🔈' : '🔊';
+    });
+    track.addEventListener('click', (e)=>{
+      const rect = track.getBoundingClientRect();
+      const ratio = (e.clientX-rect.left)/rect.width;
+      if(isFinite(audio.duration)) audio.currentTime = ratio*audio.duration;
+    });
+    audio.addEventListener('loadedmetadata', updateTime);
+    audio.addEventListener('timeupdate', updateTime);
+    audio.addEventListener('ended', ()=>{ playBtn.textContent='▶'; });
+  })();
+</script>
+
+</body>
+</html>
