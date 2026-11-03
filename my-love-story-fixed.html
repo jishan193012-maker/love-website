@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Romantic World ❤️</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: linear-gradient(180deg, #050817, #19102d, #35142f);
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.sky {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.moon {
+  position: absolute;
+  top: 55px;
+  right: 12%;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #fff2d1;
+  box-shadow: 0 0 35px #ffe9b477, 0 0 90px #d8c4ff33;
+}
+
+.star {
+  position: absolute;
+  color: white;
+  animation: twinkle 2s infinite alternate;
+}
+
+.heart {
+  position: absolute;
+  bottom: -50px;
+  animation: float 9s linear infinite;
+  opacity: 0.7;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  padding: 125px 20px 50px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.tag {
+  color: #ffc0df;
+  letter-spacing: 4px;
+  font-size: 12px;
+  margin-bottom: 25px;
+}
+
+.big-heart {
+  font-size: 65px;
+  filter: drop-shadow(0 0 20px #ff3e9d);
+  animation: beat 1.5s infinite;
+}
+
+h1 {
+  margin: 20px 0;
+  font-size: clamp(30px, 7vw, 53px);
+  line-height: 1.5;
+  background: linear-gradient(90deg, #fff, #ff9bce, #cda4ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.intro {
+  max-width: 500px;
+  color: #d9cde8;
+  font-size: 16px;
+  line-height: 2;
+  margin-bottom: 35px;
+}
+
+.card {
+  width: 100%;
+  max-width: 520px;
+  padding: 30px 22px;
+  border: 1px solid #f49bd755;
+  border-radius: 25px;
+  background: #ffffff0c;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 40px #d044a51c;
+}
+
+.card h2 {
+  color: #ffb8dc;
+  margin-bottom: 20px;
+  font-size: 25px;
+}
+
+.card p {
+  color: #eee1f4;
+  line-height: 2.1;
+  font-size: 15px;
+}
+
+button {
+  margin-top: 25px;
+  padding: 14px 25px;
+  border: 1px solid #ffb0dd;
+  border-radius: 40px;
+  color: white;
+  background: linear-gradient(100deg, #d63384, #7846c8);
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 0 20px #e83e9944;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px #e83e9988;
+}
+
+#message {
+  display: none;
+  margin-top: 22px;
+  color: #ffc5e6;
+  line-height: 2;
+}
+
+.back {
+  display: inline-block;
+  margin-top: 30px;
+  color: #e6b7ff;
+  text-decoration: none;
+}
+
+.back:hover {
+  color: white;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0);
+    opacity: 0;
+  }
+  20% { opacity: 0.8; }
+  100% {
+    transform: translateY(-110vh) rotate(35deg);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .moon {
+    width: 65px;
+    height: 65px;
+  }
+
+  .card {
+    padding: 25px 17px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sky" id="sky">
+  <div class="moon"></div>
+</div>
+
+<main class="content">
+
+  <div class="tag">✦ MY ROMANTIC WORLD ✦</div>
+
+  <div class="big-heart">❤️</div>
+
+  <h1>এক টুকরো ভালোবাসা</h1>
+
+  <p class="intro">
+    চাঁদের আলোয় সাজানো একটি ছোট্ট পৃথিবী,
+    যেখানে প্রতিটি অনুভূতি হয়ে ওঠে একটি সুন্দর গল্প। 🌙
+  </p>
+
+  <section class="card">
+    <h2>প্রিয় অনুভূতি 🌹</h2>
+
+    <p>
+      কিছু মুহূর্ত খুব সাধারণ হয়,
+      অথচ স্মৃতিতে তারা হয়ে থাকে অসাধারণ।
+      <br><br>
+      কিছু কথা বলা হয় না,
+      কিছু অনুভূতি থেকে যায় হৃদয়ের গভীরে।
+      <br><br>
+      এই ছোট্ট পেজটি সুন্দর স্মৃতি,
+      মায়া আর ভালো লাগার জন্য। 💗
+    </p>
+
+    <button onclick="openMessage()">
+      আমার জন্য একটি বার্তা 💌
+    </button>
+
+    <div id="message">
+      ✨ তোমার জীবন ভরে উঠুক আনন্দে,
+      তোমার স্বপ্নগুলো ছুঁয়ে যাক আকাশ,
+      আর প্রতিটি নতুন সকাল নিয়ে আসুক
+      সুন্দর কিছু মুহূর্ত। ❤️🌷
+    </div>
+  </section>
+
+  <a class="back" href="index.html">
+    ← ফিরে যাও মূল পেজে
+  </a>
+
+</main>
+
+
+</a>
+
+<script>
+const sky = document.getElementById("sky");
+
+for (let i = 0; i < 65; i++) {
+  const star = document.createElement("span");
+  star.className = "star";
+  star.textContent = "✦";
+  star.style.left = Math.random() * 100 + "%";
+  star.style.top = Math.random() * 100 + "%";
+  star.style.fontSize = (Math.random() * 8 + 4) + "px";
+  star.style.animationDelay = Math.random() * 3 + "s";
+  sky.appendChild(star);
+}
+
+for (let i = 0; i < 8; i++) {
+  const heart = document.createElement("span");
+  heart.className = "heart";
+  heart.textContent = ["💗", "💕", "🌸", "💖"][i % 4];
+  heart.style.left = Math.random() * 100 + "%";
+  heart.style.animationDelay = Math.random() * 9 + "s";
+  heart.style.fontSize = (Math.random() * 16 + 15) + "px";
+  sky.appendChild(heart);
+}
+
+function openMessage() {
+  document.getElementById("message").style.display = "block";
+}
+</script>
+
+</body>
+</html>
